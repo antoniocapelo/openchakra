@@ -12,6 +12,7 @@ import EffectsPanel from './styles/EffectsPanel'
 import ChildrenInspector from '~components/inspector/ChildrenInspector'
 import ParentInspector from '~components/inspector/ParentInspector'
 import CustomPropsPanel from './CustomPropsPanel'
+import ThemePanel from './ThemePanel'
 
 interface Props {
   isRoot: boolean
@@ -30,19 +31,16 @@ const StylesPanel: React.FC<Props> = ({
         <CustomPropsPanel />
       </AccordionContainer>
     )}
-
     {!isRoot && !parentIsRoot && (
       <AccordionContainer title="Parent">
         <ParentInspector />
       </AccordionContainer>
     )}
-
     {showChildren && (
       <AccordionContainer title="Children">
         <ChildrenInspector />
       </AccordionContainer>
     )}
-
     {!isRoot && (
       <>
         <AccordionContainer title="Layout">
@@ -60,7 +58,6 @@ const StylesPanel: React.FC<Props> = ({
         </AccordionContainer>
       </>
     )}
-
     <AccordionContainer title="Backgrounds">
       <ColorsControl
         withFullColor
@@ -69,7 +66,6 @@ const StylesPanel: React.FC<Props> = ({
         enableHues
       />
     </AccordionContainer>
-
     {!isRoot && (
       <>
         <AccordionContainer title="Border">

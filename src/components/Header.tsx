@@ -29,7 +29,7 @@ import { generateCode } from '~utils/code'
 import useDispatch from '~hooks/useDispatch'
 import { useSelector } from 'react-redux'
 import { getComponents } from '~core/selectors/components'
-import { getShowLayout, getShowCode } from '~core/selectors/app'
+import { getShowLayout, getShowCode, getShowTheme } from '~core/selectors/app'
 import HeaderMenu from '~components/headerMenu/HeaderMenu'
 
 const CodeSandboxButton = () => {
@@ -70,6 +70,7 @@ const CodeSandboxButton = () => {
 const Header = () => {
   const showLayout = useSelector(getShowLayout)
   const showCode = useSelector(getShowCode)
+  const showTheme = useSelector(getShowTheme)
   const dispatch = useDispatch()
 
   return (
@@ -151,6 +152,28 @@ const Header = () => {
                   id="code"
                   colorScheme="teal"
                   onChange={() => dispatch.app.toggleCodePanel()}
+                  size="sm"
+                />
+              </LightMode>
+            </FormControl>
+            <FormControl display="flex" flexDirection="row" alignItems="center">
+              <FormLabel
+                color="gray.200"
+                fontSize="xs"
+                mr={2}
+                mb={0}
+                htmlFor="theme"
+                pb={0}
+                whiteSpace="nowrap"
+              >
+                Theme panel
+              </FormLabel>
+              <LightMode>
+                <Switch
+                  isChecked={showTheme}
+                  id="code"
+                  colorScheme="teal"
+                  onChange={() => dispatch.app.toggleTheme()}
                   size="sm"
                 />
               </LightMode>

@@ -6,8 +6,9 @@ import CodePanel from '~components/CodePanel'
 import { useSelector } from 'react-redux'
 import useDispatch from '~hooks/useDispatch'
 import { getComponents } from '~core/selectors/components'
-import { getShowLayout, getShowCode } from '~core/selectors/app'
+import { getShowLayout, getShowCode, getShowTheme } from '~core/selectors/app'
 import ComponentPreview from '~components/editor/ComponentPreview'
+import ThemePanel from '~components/inspector/panels/ThemePanel'
 
 export const gridStyles = {
   backgroundImage:
@@ -19,6 +20,7 @@ export const gridStyles = {
 
 const Editor: React.FC = () => {
   const showCode = useSelector(getShowCode)
+  const showTheme = useSelector(getShowTheme)
   const showLayout = useSelector(getShowLayout)
   const components = useSelector(getComponents)
   const dispatch = useDispatch()
@@ -81,7 +83,7 @@ const Editor: React.FC = () => {
     </Box>
   )
 
-  if (!showCode) {
+  if (!showCode && !showTheme) {
     return Playground
   }
 
@@ -97,7 +99,9 @@ const Editor: React.FC = () => {
       split="horizontal"
     >
       {Playground}
-      <CodePanel />
+      {showCode && <CodePanel />}
+
+      {showTheme && <ThemePanel />}
     </SplitPane>
   )
 }

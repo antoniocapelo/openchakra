@@ -1,3 +1,4 @@
+import theme, { Theme } from '@chakra-ui/theme'
 import { createModel } from '@rematch/core'
 
 type Overlay = undefined | { rect: DOMRect; id: string; type: ComponentType }
@@ -5,16 +6,20 @@ type Overlay = undefined | { rect: DOMRect; id: string; type: ComponentType }
 export type AppState = {
   showLayout: boolean
   showCode: boolean
+  showTheme: boolean
   inputTextFocused: boolean
   overlay: undefined | Overlay
+  theme: Theme
 }
 
 const app = createModel({
   state: {
     showLayout: true,
     showCode: false,
+    showTheme: false,
     inputTextFocused: false,
     overlay: undefined,
+    theme,
   } as AppState,
   reducers: {
     toggleBuilderMode(state: AppState): AppState {
@@ -26,7 +31,15 @@ const app = createModel({
     toggleCodePanel(state: AppState): AppState {
       return {
         ...state,
+        showTheme: false,
         showCode: !state.showCode,
+      }
+    },
+    toggleTheme(state: AppState): AppState {
+      return {
+        ...state,
+        showCode: false,
+        showTheme: !state.showTheme,
       }
     },
     toggleInputText(state: AppState): AppState {
@@ -39,6 +52,23 @@ const app = createModel({
       return {
         ...state,
         overlay,
+      }
+    },
+    setTheme(state: AppState, customTheme: Theme = {} as Theme): AppState {
+      console.log('no state', {
+        ...state,
+        theme: {
+          ...theme,
+          ...customTheme,
+        },
+      })
+
+      return {
+        ...state,
+        theme: {
+          ...theme,
+          ...customTheme,
+        },
       }
     },
     'components/deleteComponent': (state: AppState): AppState => {
